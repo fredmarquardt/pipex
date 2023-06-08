@@ -6,13 +6,13 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:33:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/05/31 11:28:56 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/02 13:25:00 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	find_path(char *envp[])
+char	**find_path(char *envp[])
 {
 	int		i;
 	int		j;
@@ -33,5 +33,5 @@ void	find_path(char *envp[])
 		}
 		i++;
 	}
-	return ;
+	return (path);
 }

@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:54:59 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/05/31 17:42:13 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:41:17 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_printf("Input Format: ./pipex file1 cmd1 cmd2 file2\n");
 		return (0);
 	}
-	fill_pipe(pip);
+	fill_pipe(*pip, argv, envp);
 	cmd1 = argv[2];
 	find_path(envp);
 	ft_printf("Trolollol\n");
@@ -33,6 +33,9 @@ int	main(int argc, char *argv[], char *envp[])
 	destroy_pipe(pip);
 	return (0);
 }
+
+
+
 
 t_pipe	*create_t_pipe(void)
 {
@@ -60,13 +63,20 @@ t_pipe	*create_t_pipe(void)
 
 void	execute(char *envp[])
 {
-	char	cmd[] = "/bin/ls";
-	char	*argv[] = {"ls", "-l", NULL};
+	/* char	cmd[] = "/bin/ls";
+	char	*argv[] = {"ls", "-l", NULL}; */
+	char	cmd[] = "/bin/echo";
+	char	*argv[] = {"echo", NULL};
+	int		new_fd;
+	pid_t	parent;
 
-	envp[0] = "/Users/fmarquar/Documents/gitrepos/";
+	envp[0] = "/Users/fmarquar/Documents/gitrepos/pipex/";
 	envp[1] = NULL;
+	new_fd = open("test.txt", O_RDWR);
+	if (dup2(new_fd, STDOUT_FILENO) == -1)
+		ft_printf("\nERROR\n");
+	ft_printf("%i\nlollol\n", new_fd);
 	if (execve(cmd, argv, envp) == -1)
 		ft_printf("Ooops! Something went wrong!\n");
-	ft_printf("lollol\n");
 	return ;
 }
