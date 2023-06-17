@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:45:24 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/14 13:13:34 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:32:10 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,25 @@
 	return ;
 } */
 
-void	execute(char *envp[], t_smw *smw)
+void	execute(char *envp[], t_smw *smw, char *argv[])
 {
 	envp[0] = "/Users/fmarquar/Documents/gitrepos/pipex/";
 	envp[1] = NULL;
 	pipe(smw->end);
-	mario_input(smw, envp);
+	mario_input(smw, envp, argv);
 	luigi_output(smw, envp);
 	ft_printf("Gabel oder was???\n");
 	return ;
 }
 
-void	mario_input(t_smw *smw, char *envp[])
+void	mario_input(t_smw *smw, char *envp[], char *argv[])
 {
-	char	cmd[] = "/bin/cat";
-	char	*argv[] = {"bin/cat", NULL};
+	char	**cmd_args;
 	int		child_id;
 	int		fd_in;
 
+	cmd_args = find_cmd_args(smw, envp, argv);
+	//cmd_args = ft_strjoin(smw)
 	fd_in = open("test.txt", O_RDWR);
 	child_id = fork();
 	if (child_id == 0)
@@ -51,7 +52,7 @@ void	mario_input(t_smw *smw, char *envp[])
 		close(smw->end[1]);
 		ft_printf("%i\nlollol\n", fd_in);
 		ft_printf("%i\n123GuteLaune\n", fd_in);
-		if (execve(cmd, argv, envp) == -1)
+		if (execve(smw->cmd_in, cmd_args, envp) == -1)
 			ft_printf("Ooops! Something went wrong!\n");
 		ft_printf("Auftrag ausgefuehrt!!!\n");
 	}
