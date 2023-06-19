@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:11:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/17 18:32:44 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:29:00 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_smw
 {
 	int			fd1;
 	int			fd2;
+	int			in_opt;
+	int			out_opt;
 	int			end[2];
 	bool		heredoc;
 	char		**path;
@@ -37,19 +39,25 @@ typedef struct s_smw
 //main
 int				main(int argc, char *argv[], char *envp[]);
 
+//super_mario_world.c
+t_smw			*create_smw(int argc);
+void			fill_smw(t_smw *smw, char *envp[], char *argv[]);
+
 //connect_pipes.c
 void			fill_pipe(t_smw *smw, char *argv[], char *envp[]);
 void			execute(char *envp[], t_smw *smw, char *argv[]);
 void			mario_input(t_smw *smw, char *envp[], char *argv[]);
 void			luigi_output(t_smw *smw, char *envp[]);
 //pathfinder.c
-t_smw			*create_smw(int argc);
-void			fill_smw(t_smw *smw, char *envp[], char *argv[]);
+
 char			*find_cmd_path(t_smw *smw, char *envp[], char *argv);
 char			**find_path(char *envp[]);
-char			**find_cmd_args(t_smw *smw, char *envp[], char *argv[]);
+char			**find_cmd_args(t_smw *smw, char *envp[], char *argv);
 
 //free_stuff
 void			free_smw(t_smw *smw);
+
+//utils
+int				count_c_in_string(char *string, char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:45:24 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/17 18:32:10 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:43:39 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ void	execute(char *envp[], t_smw *smw, char *argv[])
 	envp[0] = "/Users/fmarquar/Documents/gitrepos/pipex/";
 	envp[1] = NULL;
 	pipe(smw->end);
+	ft_printf("Pipe successfull\n");
 	mario_input(smw, envp, argv);
+	ft_printf("mario successfull\n");
 	luigi_output(smw, envp);
-	ft_printf("Gabel oder was???\n");
+	ft_printf("luigi successfull\n");
 	return ;
 }
 
@@ -36,9 +38,14 @@ void	mario_input(t_smw *smw, char *envp[], char *argv[])
 	char	**cmd_args;
 	int		child_id;
 	int		fd_in;
+	int i = 0;
 
-	cmd_args = find_cmd_args(smw, envp, argv);
-	//cmd_args = ft_strjoin(smw)
+	cmd_args = find_cmd_args(smw, envp, argv[2]);
+	while(cmd_args[i] != NULL)
+	{
+		ft_printf("CMD ARG = %s\n", cmd_args[i]);
+		i++;
+	}
 	fd_in = open("test.txt", O_RDWR);
 	child_id = fork();
 	if (child_id == 0)
