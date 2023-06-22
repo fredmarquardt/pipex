@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:45:24 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/19 12:43:39 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:23:32 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,22 @@
 
 void	execute(char *envp[], t_smw *smw, char *argv[])
 {
-	envp[0] = "/Users/fmarquar/Documents/gitrepos/pipex/";
-	envp[1] = NULL;
 	pipe(smw->end);
 	ft_printf("Pipe successfull\n");
 	mario_input(smw, envp, argv);
 	ft_printf("mario successfull\n");
-	luigi_output(smw, envp);
+	luigi_output(smw, envp, argv);
 	ft_printf("luigi successfull\n");
 	return ;
 }
 
 void	mario_input(t_smw *smw, char *envp[], char *argv[])
 {
-	char	**cmd_args;
 	int		child_id;
 	int		fd_in;
-	int i = 0;
 
-	cmd_args = find_cmd_args(smw, envp, argv[2]);
-	while(cmd_args[i] != NULL)
-	{
-		ft_printf("CMD ARG = %s\n", cmd_args[i]);
-		i++;
-	}
-	fd_in = open("test.txt", O_RDWR);
+	find_cmd_args_in(smw, argv[2], envp);
+	fd_in = open(argv[1], O_RDWR);
 	child_id = fork();
 	if (child_id == 0)
 	{
@@ -57,24 +48,20 @@ void	mario_input(t_smw *smw, char *envp[], char *argv[])
 			ft_printf("\nERROR\n");
 		close(fd_in);
 		close(smw->end[1]);
-		ft_printf("%i\nlollol\n", fd_in);
-		ft_printf("%i\n123GuteLaune\n", fd_in);
-		if (execve(smw->cmd_in, cmd_args, envp) == -1)
-			ft_printf("Ooops! Something went wrong!\n");
+		if (execve(smw->cmd_in, smw->args_in, envp) == -1)
+			perror("Ooops! Something went wrong!\n");
 		ft_printf("Auftrag ausgefuehrt!!!\n");
 	}
-	waitpid(child_id, NULL, 0);
 	return ;
 }
 
-void	luigi_output(t_smw *smw, char *envp[])
+void	luigi_output(t_smw *smw, char *envp[], char *argv[])
 {
-	char	cmd[] = "/bin/cat";
-	char	*argv[] = {"bin/cat", NULL};
 	int		child_id;
 	int		fd_out;
 
-	fd_out = open("output.txt", O_RDWR | O_CREAT | O_APPEND, 0644);
+	find_cmd_args_out(smw, argv[3], envp);
+	fd_out = open(argv[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	child_id = fork();
 	if (child_id == 0)
 	{
@@ -83,16 +70,15 @@ void	luigi_output(t_smw *smw, char *envp[])
 			ft_printf("\nERROR\n");
 		if (dup2(fd_out, STDOUT_FILENO) == -1)
 			ft_printf("\nERROR\n");
-		ft_printf("Landet das jetzt im Textfile??\n");
-		if (access(cmd, F_OK) != 0)
-			ft_printf("CMD2:%s\nDa hat sich der Fehlerteufel eingeschlichen\n", cmd);
-		if (execve(cmd, argv, envp) == -1)
-			ft_printf("Ooops! Something went wrong!\n");
+		if (access(smw->cmd_out, F_OK) != 0)
+			ft_printf("Da hat sich der Fehlerteufel eingeschlichen\n");
+		if (execve(smw->cmd_out, smw->args_out, envp) == -1)
+			perror("Ooops! Something went wrong!\n");
+		ft_printf("Auftrag ausgefuehrt!!!\n");
 		close(fd_out);
 		close(smw->end[1]);
 		ft_printf("Auftrag ausgefuehrt!!!\n");
 	}
-	//waitpid(c_id, NULL, 0);
 	ft_printf("%i\nwo bin ich gelandet?\n", fd_out);
 	return ;
 }

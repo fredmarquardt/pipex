@@ -6,13 +6,11 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:33:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/19 13:26:38 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:42:55 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-
 
 char	*find_cmd_path(t_smw *smw, char *envp[], char *argv)
 {
@@ -28,7 +26,6 @@ char	*find_cmd_path(t_smw *smw, char *envp[], char *argv)
 	while (path[i] != NULL)
 	{
 		acc = ft_strjoin("/", cmd[0]);
-		ft_printf("Does this work?? PATH = %s\n", acc);
 		acc = ft_strjoin(path[i], acc);
 		ft_printf("Does this work?? PATH = %s\n", acc);
 		if (access(acc, F_OK) == 0)
@@ -42,28 +39,36 @@ char	*find_cmd_path(t_smw *smw, char *envp[], char *argv)
 	return (acc);
 }
 
-char	**find_cmd_args(t_smw *smw, char *envp[], char *argv)
+void	find_cmd_args_in(t_smw *smw, char *argv, char *envp[])
 {
-	char	**argv_in;
-	char	**args;
-	char	**path;
 	int		i;
 
 	i = 0;
-	argv_in = ft_split(argv, ' ');
-	while (argv_in != NULL)
-		i++;
-	args = malloc((i + 2) * sizeof(char *));
-	path = find_path(envp);
-	i = 0;
-	args[0] = smw->cmd_in;
-	while (argv_in[i] != NULL)
+	smw->args_in = ft_split(argv, ' ');
+	while (smw->args_in[i] != NULL)
 	{
-		args[i + 1] = argv_in[i];
+		ft_printf("argv: %s\n", smw->args_in[i]);
 		i++;
 	}
-	args[i + 1] = NULL;
-	return (args);
+	smw->args_in[0] = find_cmd_path(smw, envp, argv);
+	ft_printf("argv: %s\n", smw->args_in[0]);
+	return ;
+}
+
+void	find_cmd_args_out(t_smw *smw, char *argv, char *envp[])
+{
+	int		i;
+
+	i = 0;
+	smw->args_out = ft_split(argv, ' ');
+	while (smw->args_out[i] != NULL)
+	{
+		ft_printf("argv: %s\n", smw->args_out[i]);
+		i++;
+	}
+	smw->args_out[0] = find_cmd_path(smw, envp, argv);
+	ft_printf("argv: %s\n", smw->args_out[0]);
+	return ;
 }
 
 char	**find_path(char *envp[])

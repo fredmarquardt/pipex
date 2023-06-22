@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
-SOURCE = main.c pathfinder.c connect_pipes.c free_stuff.c utils.c
+SOURCE = main.c pathfinder.c connect_pipes.c free_stuff.c utils.c super_mario_world.c
 OBJ = $(SOURCE:.c=.o)
 NAME = pipex
 FTPRINTF	= ./ft_printf/libftprintf.a

@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:54:59 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/17 18:17:08 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/22 10:27:22 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*cmd1;
 	t_smw	*smw;
 
-	smw = create_smw(argc);
+	smw = create_smw(argc, argv);
 	fill_smw(smw, envp, argv);
 	ft_printf("ENV: %s\n", smw->path[0]);
 	ft_printf("ENV: %s\n", smw->path[1]);
