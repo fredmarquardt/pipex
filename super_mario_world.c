@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:26:46 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/22 10:27:01 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:54:54 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	fill_smw(t_smw *smw, char *envp[], char *argv[])
 	smw->in_opt = count_c_in_string(argv[2], ' ');
 	smw->out_opt = count_c_in_string(argv[3], ' ');
 	smw->path = find_path(envp);
-	smw->cmd_in = find_cmd_path(smw, envp, argv[2]);
-	smw->cmd_out = find_cmd_path(smw, envp, argv[3]);
+	smw->cmd_in = find_cmd_path(envp, argv[2]);
+	smw->cmd_out = find_cmd_path(envp, argv[3]);
 	return ;
 }

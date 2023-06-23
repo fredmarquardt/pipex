@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:45:24 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/22 16:23:32 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/23 14:44:18 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	execute(char *envp[], t_smw *smw, char *argv[])
 
 void	mario_input(t_smw *smw, char *envp[], char *argv[])
 {
-	int		child_id;
+	pid_t	child_id;
 	int		fd_in;
 
 	find_cmd_args_in(smw, argv[2], envp);
@@ -52,12 +52,13 @@ void	mario_input(t_smw *smw, char *envp[], char *argv[])
 			perror("Ooops! Something went wrong!\n");
 		ft_printf("Auftrag ausgefuehrt!!!\n");
 	}
+	//waitpid(child_id, NULL, 0);
 	return ;
 }
 
 void	luigi_output(t_smw *smw, char *envp[], char *argv[])
 {
-	int		child_id;
+	pid_t	child_id;
 	int		fd_out;
 
 	find_cmd_args_out(smw, argv[3], envp);
@@ -79,6 +80,7 @@ void	luigi_output(t_smw *smw, char *envp[], char *argv[])
 		close(smw->end[1]);
 		ft_printf("Auftrag ausgefuehrt!!!\n");
 	}
+	//waitpid(child_id, NULL, 0);
 	ft_printf("%i\nwo bin ich gelandet?\n", fd_out);
 	return ;
 }

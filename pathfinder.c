@@ -6,13 +6,13 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:33:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/22 15:42:55 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:54:16 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*find_cmd_path(t_smw *smw, char *envp[], char *argv)
+char	*find_cmd_path(char *envp[], char *argv)
 {
 	char	**path;
 	char	**cmd;
@@ -35,7 +35,6 @@ char	*find_cmd_path(t_smw *smw, char *envp[], char *argv)
 		}
 		i++;
 	}
-	i = smw->fd1;
 	return (acc);
 }
 
@@ -50,7 +49,7 @@ void	find_cmd_args_in(t_smw *smw, char *argv, char *envp[])
 		ft_printf("argv: %s\n", smw->args_in[i]);
 		i++;
 	}
-	smw->args_in[0] = find_cmd_path(smw, envp, argv);
+	smw->args_in[0] = find_cmd_path(envp, argv);
 	ft_printf("argv: %s\n", smw->args_in[0]);
 	return ;
 }
@@ -66,7 +65,7 @@ void	find_cmd_args_out(t_smw *smw, char *argv, char *envp[])
 		ft_printf("argv: %s\n", smw->args_out[i]);
 		i++;
 	}
-	smw->args_out[0] = find_cmd_path(smw, envp, argv);
+	smw->args_out[0] = find_cmd_path(envp, argv);
 	ft_printf("argv: %s\n", smw->args_out[0]);
 	return ;
 }

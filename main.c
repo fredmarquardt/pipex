@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:54:59 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/22 10:27:22 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:39:03 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char *argv[], char *envp[])
 	find_path(envp);
 	ft_printf("Trolollol\n");
 	execute(envp, smw, argv);
-	free_smw(smw);
+	if (waitpid(0, NULL, 0) >= 0)
+		free_smw(smw);
 	return (0);
 }

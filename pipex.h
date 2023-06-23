@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:11:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/22 15:58:23 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/23 11:05:19 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,9 @@
 //struct Super Mario World
 typedef struct s_smw
 {
-	int			fd1;
-	int			fd2;
 	int			in_opt;
 	int			out_opt;
 	int			end[2];
-	bool		heredoc;
 	char		**path;
 	char		**args_in;
 	char		**args_out;
@@ -50,15 +47,16 @@ void			fill_pipe(t_smw *smw, char *argv[], char *envp[]);
 void			execute(char *envp[], t_smw *smw, char *argv[]);
 void			mario_input(t_smw *smw, char *envp[], char *argv[]);
 void			luigi_output(t_smw *smw, char *envp[], char *argv[]);
-//pathfinder.c
 
-char			*find_cmd_path(t_smw *smw, char *envp[], char *argv);
+//pathfinder.c
+char			*find_cmd_path(char *envp[], char *argv);
 char			**find_path(char *envp[]);
 void			find_cmd_args_in(t_smw *smw, char *argv, char *envp[]);
 void			find_cmd_args_out(t_smw *smw, char *argv, char *envp[]);
 
 //free_stuff
 void			free_smw(t_smw *smw);
+void			free_double_char(char **stuff);
 
 //utils
 int				count_c_in_string(char *string, char c);
