@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:26:46 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/22 16:54:54 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/24 19:52:33 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,17 @@ t_smw	*create_smw(int argc, char *argv[])
 	int		i;
 	int		argc_in_cmd;
 
-	i = 0;
-	ft_printf("Number of arguments: %i\n", argc);
+	i = argc;
 	smw = (t_smw *)malloc(sizeof(t_smw));
 	if (smw == NULL)
 	{
 		ft_printf("Memory allocation failed\n");
 	}
-	path_size = 100;
-	smw->path = (char **) ft_calloc(path_size, sizeof(char *));
+	path_size = 50;
 	argc_in_cmd = count_c_in_string(argv[2], ' ' );
-	//smw->args_in = (char **) ft_calloc(argc_in_cmd + 2, sizeof(char *));
-	smw->cmd_in = (char *) malloc(path_size * sizeof(char *));
-	smw->cmd_out = (char *) malloc(path_size * sizeof(char *));
+	smw->path = (char **) ft_calloc(argc_in_cmd + 2, sizeof(char *));
+	smw->cmd_in = (char *) ft_calloc(1, sizeof(char));
+	smw->cmd_out = (char *) ft_calloc(1, sizeof(char));
 	if (smw->path == NULL || smw->cmd_in == NULL || smw->cmd_out == NULL)
 	{
 		fprintf(stderr, "Memory allocation failed\n");
@@ -44,8 +42,14 @@ void	fill_smw(t_smw *smw, char *envp[], char *argv[])
 {
 	smw->in_opt = count_c_in_string(argv[2], ' ');
 	smw->out_opt = count_c_in_string(argv[3], ' ');
+	if (smw->path)
+		free_double_char(smw->path);
 	smw->path = find_path(envp);
+	if (smw->cmd_in)
+		free(smw->cmd_in);
 	smw->cmd_in = find_cmd_path(envp, argv[2]);
+	if (smw->cmd_out)
+		free(smw->cmd_out);
 	smw->cmd_out = find_cmd_path(envp, argv[3]);
 	return ;
 }

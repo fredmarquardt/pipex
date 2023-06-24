@@ -6,33 +6,32 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:54:59 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/23 15:39:03 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/24 19:48:32 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char *argv[], char *envp[])
+int	main2(int argc, char *argv[], char *envp[])
 {
 	char	*cmd1;
 	t_smw	*smw;
 
-	smw = create_smw(argc, argv);
-	fill_smw(smw, envp, argv);
-	ft_printf("ENV: %s\n", smw->path[0]);
-	ft_printf("ENV: %s\n", smw->path[1]);
-	ft_printf("ENV: %s\n", smw->path[2]);
 	if (argc != 5)
 	{
 		ft_printf("Input Format: ./pipex file1 cmd1 cmd2 file2\n");
 		return (0);
 	}
-	//fill_pipe(smw, argv, envp);
+	smw = create_smw(argc, argv);
+	fill_smw(smw, envp, argv);
 	cmd1 = argv[2];
-	find_path(envp);
-	ft_printf("Trolollol\n");
 	execute(envp, smw, argv);
-	if (waitpid(0, NULL, 0) >= 0)
-		free_smw(smw);
+	free_smw(smw);
 	return (0);
+}
+
+int	main(int argc, char *argv[], char *envp[])
+{
+	main2(argc, argv, envp);
+	system("leaks pipex");
 }

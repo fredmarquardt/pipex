@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:33:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/22 16:54:16 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/24 19:42:53 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ char	*find_cmd_path(char *envp[], char *argv)
 {
 	char	**path;
 	char	**cmd;
-	char	*acc;
+	char	*acc1;
+	char	*acc2;
 	int		i;
 
 	i = 0;
@@ -25,17 +26,17 @@ char	*find_cmd_path(char *envp[], char *argv)
 	path = find_path(envp);
 	while (path[i] != NULL)
 	{
-		acc = ft_strjoin("/", cmd[0]);
-		acc = ft_strjoin(path[i], acc);
-		ft_printf("Does this work?? PATH = %s\n", acc);
-		if (access(acc, F_OK) == 0)
-		{
-			ft_printf("HOORAY!! CMD = %s\n", acc);
+		acc1 = ft_strjoin("/", cmd[0]);
+		acc2 = ft_strjoin(path[i], acc1);
+		free(acc1);
+		if (access(acc2, F_OK) == 0)
 			break ;
-		}
+		free(acc2);
 		i++;
 	}
-	return (acc);
+	free_double_char(cmd);
+	free_double_char(path);
+	return (acc2);
 }
 
 void	find_cmd_args_in(t_smw *smw, char *argv, char *envp[])
@@ -49,6 +50,7 @@ void	find_cmd_args_in(t_smw *smw, char *argv, char *envp[])
 		ft_printf("argv: %s\n", smw->args_in[i]);
 		i++;
 	}
+	free(smw->args_in[0]);
 	smw->args_in[0] = find_cmd_path(envp, argv);
 	ft_printf("argv: %s\n", smw->args_in[0]);
 	return ;
@@ -65,6 +67,7 @@ void	find_cmd_args_out(t_smw *smw, char *argv, char *envp[])
 		ft_printf("argv: %s\n", smw->args_out[i]);
 		i++;
 	}
+	free(smw->args_out[0]);
 	smw->args_out[0] = find_cmd_path(envp, argv);
 	ft_printf("argv: %s\n", smw->args_out[0]);
 	return ;
@@ -73,21 +76,14 @@ void	find_cmd_args_out(t_smw *smw, char *argv, char *envp[])
 char	**find_path(char *envp[])
 {
 	int		i;
-	int		j;
 	char	**path;
 
 	i = 0;
-	j = 0;
 	while (envp[i] != NULL)
 	{
 		if (ft_memcmp(envp[i], "PATH", 4) == 0)
 		{
 			path = ft_split(envp[i], ':');
-			while (path[j] != NULL)
-			{
-				//printf("%s\n", path[j]);
-				j++;
-			}
 		}
 		i++;
 	}
