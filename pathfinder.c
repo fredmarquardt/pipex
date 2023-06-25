@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:33:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/24 19:42:53 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/25 11:32:55 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char	*find_cmd_path(char *envp[], char *argv)
 
 	i = 0;
 	cmd = ft_split(argv, ' ');
-	ft_printf("CMD[0] = %s\n", cmd[0]);
 	path = find_path(envp);
 	while (path[i] != NULL)
 	{
@@ -45,11 +44,6 @@ void	find_cmd_args_in(t_smw *smw, char *argv, char *envp[])
 
 	i = 0;
 	smw->args_in = ft_split(argv, ' ');
-	while (smw->args_in[i] != NULL)
-	{
-		ft_printf("argv: %s\n", smw->args_in[i]);
-		i++;
-	}
 	free(smw->args_in[0]);
 	smw->args_in[0] = find_cmd_path(envp, argv);
 	ft_printf("argv: %s\n", smw->args_in[0]);
