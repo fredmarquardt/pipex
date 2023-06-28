@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:33:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/25 11:32:55 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:45:55 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	*find_cmd_path(char *envp[], char *argv)
 	int		i;
 
 	i = 0;
+	acc2 = NULL;
 	cmd = ft_split(argv, ' ');
 	path = find_path(envp);
 	while (path[i] != NULL)
@@ -31,11 +32,12 @@ char	*find_cmd_path(char *envp[], char *argv)
 		if (access(acc2, F_OK) == 0)
 			break ;
 		free(acc2);
+		acc2 = NULL;
 		i++;
 	}
-	free_double_char(cmd);
-	free_double_char(path);
-	return (acc2);
+	if ((access(acc2, F_OK) != 0))
+		acc2 = ft_strdup(cmd[0]);
+	return (free_double_char(cmd), free_double_char(path), acc2);
 }
 
 void	find_cmd_args_in(t_smw *smw, char *argv, char *envp[])
@@ -46,7 +48,6 @@ void	find_cmd_args_in(t_smw *smw, char *argv, char *envp[])
 	smw->args_in = ft_split(argv, ' ');
 	free(smw->args_in[0]);
 	smw->args_in[0] = find_cmd_path(envp, argv);
-	ft_printf("argv: %s\n", smw->args_in[0]);
 	return ;
 }
 
@@ -56,14 +57,8 @@ void	find_cmd_args_out(t_smw *smw, char *argv, char *envp[])
 
 	i = 0;
 	smw->args_out = ft_split(argv, ' ');
-	while (smw->args_out[i] != NULL)
-	{
-		ft_printf("argv: %s\n", smw->args_out[i]);
-		i++;
-	}
 	free(smw->args_out[0]);
 	smw->args_out[0] = find_cmd_path(envp, argv);
-	ft_printf("argv: %s\n", smw->args_out[0]);
 	return ;
 }
 

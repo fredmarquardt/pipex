@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:26:46 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/24 19:52:33 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/26 14:56:54 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 t_smw	*create_smw(int argc, char *argv[])
 {
 	t_smw	*smw;
-	int		path_size;
-	int		i;
 	int		argc_in_cmd;
+	int		i;
 
 	i = argc;
 	smw = (t_smw *)malloc(sizeof(t_smw));
@@ -25,7 +24,6 @@ t_smw	*create_smw(int argc, char *argv[])
 	{
 		ft_printf("Memory allocation failed\n");
 	}
-	path_size = 50;
 	argc_in_cmd = count_c_in_string(argv[2], ' ' );
 	smw->path = (char **) ft_calloc(argc_in_cmd + 2, sizeof(char *));
 	smw->cmd_in = (char *) ft_calloc(1, sizeof(char));

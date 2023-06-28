@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:11:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/24 14:36:31 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:34:28 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,18 @@
 # include "./ft_printf/ft_printf.h"
 # include "./libft/libft.h"
 
+# define FALSE 0
+# define TRUE 1
+
 //struct Super Mario World
 typedef struct s_smw
 {
 	int			in_opt;
 	int			out_opt;
 	int			end[2];
+	pid_t		child_id1;
+	pid_t		child_id2;
+	bool		luigi_cleared;
 	char		**path;
 	char		**args_in;
 	char		**args_out;
