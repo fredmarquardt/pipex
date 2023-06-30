@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:12:24 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/26 18:36:50 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:12:07 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_double_char(char **stuff)
 	int	i;
 
 	i = 0;
-	if (stuff[0] != NULL)
+	if (stuff && stuff[0] != NULL)
 	{
 		while (stuff[i] != NULL)
 		{

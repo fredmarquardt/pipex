@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:54:59 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/28 14:13:26 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:11:33 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main2(int argc, char *argv[], char *envp[])
 		ft_printf("Input Format: ./pipex file1 cmd1 cmd2 file2\n");
 		return (0);
 	}
+	if (!envp)
+		perror("env");
 	smw = create_smw(argc, argv);
 	fill_smw(smw, envp, argv);
 	cmd1 = argv[2];
@@ -32,15 +34,14 @@ int	main2(int argc, char *argv[], char *envp[])
 	free_smw(smw);
 	if (waitpid(-1, NULL, WNOHANG) == -1)
 		return (0);
-	//while (waitpid(-1, NULL, WUNTRACED) == -1);
 	return (0);
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	int err = main2(argc, argv, envp);
+	main2(argc, argv, envp);
 	//system("leaks pipex");
-	return (err);
+	return (0);
 }
 
 bool	cmds_are_correct(char argv[], char *envp[])
@@ -54,7 +55,7 @@ bool	cmds_are_correct(char argv[], char *envp[])
 	i = 0;
 	cmd = ft_split(argv, ' ');
 	path = find_path(envp);
-	while (path[i] != NULL)
+	while (path && path[i] != NULL)
 	{
 		acc1 = ft_strjoin("/", cmd[0]);
 		acc2 = ft_strjoin(path[i], acc1);

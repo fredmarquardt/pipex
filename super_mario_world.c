@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:26:46 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/26 14:56:54 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:44:47 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_smw	*create_smw(int argc, char *argv[])
 	smw->cmd_out = (char *) ft_calloc(1, sizeof(char));
 	if (smw->path == NULL || smw->cmd_in == NULL || smw->cmd_out == NULL)
 	{
-		fprintf(stderr, "Memory allocation failed\n");
+		ft_printf("Memory allocation failed\n");
 		free(smw);
 	}
 	return (smw);

@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:33:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/28 15:45:55 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:27:06 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*find_cmd_path(char *envp[], char *argv)
 	acc2 = NULL;
 	cmd = ft_split(argv, ' ');
 	path = find_path(envp);
-	while (path[i] != NULL)
+	while (path && path[i] != NULL)
 	{
 		acc1 = ft_strjoin("/", cmd[0]);
 		acc2 = ft_strjoin(path[i], acc1);
@@ -68,6 +68,7 @@ char	**find_path(char *envp[])
 	char	**path;
 
 	i = 0;
+	path = NULL;
 	while (envp[i] != NULL)
 	{
 		if (ft_memcmp(envp[i], "PATH", 4) == 0)

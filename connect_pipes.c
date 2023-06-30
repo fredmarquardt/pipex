@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:45:24 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/28 15:19:37 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:30:45 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	luigi_output(t_smw *smw, char *envp[], char *argv[])
 		close(smw->end[0]);
 		if (execve(smw->cmd_out, smw->args_out, envp) == -1)
 			return (perror("ERROR"));
+		exit(1);
 	}
 	return ;
 }
