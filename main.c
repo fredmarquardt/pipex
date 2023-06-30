@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:54:59 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/29 10:11:33 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/30 18:47:59 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	main2(int argc, char *argv[], char *envp[])
 		ft_printf("Input Format: ./pipex file1 cmd1 cmd2 file2\n");
 		return (0);
 	}
-	if (!envp)
-		perror("env");
+/* 	if (!envp)
+		perror("env"); */
 	smw = create_smw(argc, argv);
 	fill_smw(smw, envp, argv);
 	cmd1 = argv[2];
 	execute(envp, smw, argv);
 	free_smw(smw);
-	if (waitpid(-1, NULL, WNOHANG) == -1)
+	if (waitpid(smw->child_id1, NULL, WNOHANG) == -1)
 		return (0);
 	return (0);
 }

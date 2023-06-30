@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:33:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/29 10:27:06 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:12:31 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,17 @@ char	**find_path(char *envp[])
 {
 	int		i;
 	char	**path;
+	char	*env;
 
 	i = 0;
 	path = NULL;
 	while (envp[i] != NULL)
 	{
-		if (ft_memcmp(envp[i], "PATH", 4) == 0)
+		if (ft_memcmp(envp[i], "PATH=", 5) == 0)
 		{
-			path = ft_split(envp[i], ':');
+			env = ft_strtrim(envp[i], "PATH=");
+			path = ft_split(env, ':');
+			free(env);
 		}
 		i++;
 	}
