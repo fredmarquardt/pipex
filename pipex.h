@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:11:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/27 18:34:28 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/07/02 19:20:52 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_smw
 	int			end[2];
 	pid_t		child_id1;
 	pid_t		child_id2;
-	bool		luigi_cleared;
+	bool		mario_cleared;
 	char		**path;
 	char		**args_in;
 	char		**args_out;
@@ -50,9 +50,9 @@ void			fill_smw(t_smw *smw, char *envp[], char *argv[]);
 
 //connect_pipes.c
 void			fill_pipe(t_smw *smw, char *argv[], char *envp[]);
-void			execute(char *envp[], t_smw *smw, char *argv[]);
+void			execute(int *statloc, char *envp[], t_smw *smw, char *argv[]);
 void			mario_input(t_smw *smw, char *envp[], char *argv[]);
-void			luigi_output(t_smw *smw, char *envp[], char *argv[]);
+void			luigi_output(int *statloc, t_smw *smw, char *envp[], char *argv[]);
 
 //pathfinder.c
 char			*find_cmd_path(char *envp[], char *argv);

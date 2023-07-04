@@ -6,7 +6,7 @@
 /*   By: fmarquar <fmarquar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:33:22 by fmarquar          #+#    #+#             */
-/*   Updated: 2023/06/30 17:12:31 by fmarquar         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:13:41 by fmarquar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*find_cmd_path(char *envp[], char *argv)
 
 	i = 0;
 	acc2 = NULL;
+	if (ft_strnstr(argv, "/", ft_strlen(argv)))
+		return (ft_strdup(argv));
 	cmd = ft_split(argv, ' ');
 	path = find_path(envp);
 	while (path && path[i] != NULL)
@@ -36,7 +38,7 @@ char	*find_cmd_path(char *envp[], char *argv)
 		i++;
 	}
 	if ((access(acc2, F_OK) != 0))
-		acc2 = ft_strdup(cmd[0]);
+		acc2 = ft_strdup(argv);
 	return (free_double_char(cmd), free_double_char(path), acc2);
 }
 
@@ -77,8 +79,9 @@ char	**find_path(char *envp[])
 			env = ft_strtrim(envp[i], "PATH=");
 			path = ft_split(env, ':');
 			free(env);
+			return (path);
 		}
 		i++;
 	}
-	return (path);
+	return (NULL);
 }
